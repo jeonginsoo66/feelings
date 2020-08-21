@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../partials/head") %>
+  </head>
+  <body>
+    <%- include("../partials/nav") %>
+
+    <div class="searchBar-container">
+      <form id="searchForm" name="searchForm" action="/music/search">
+        <input type="text" id="searchBar" name="search" />
+        <button type="submit" id="searchBtn">Search</button>
+      </form>
+
+      <form id="feelingsChkForm" name="feelingsChkForm" action=""></form>
+    </div>
+  </body>
+</html>
