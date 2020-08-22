@@ -19,7 +19,7 @@ const getTokenPromise = (username, password, method) => {
         json: true,
       },
       (e, r, body) => {
-        console.log(body);
+        console.log("Promise getToken:", body);
         resolve(body);
       }
     );
@@ -32,7 +32,7 @@ const getTokenPromise = (username, password, method) => {
 homeRouter.get("/", (req, res) => {
   const token = req.cookies;
 
-  console.log(req.cookies.userData);
+  console.log("main home page cookie userData:", req.cookies.userData);
 
   res.render("home/", { token });
 });
@@ -69,7 +69,7 @@ homeRouter.post(
   },
   (req, res) => {
     const { username, password } = req.body;
-
+    console.log(username, password);
     getToken = getTokenPromise(username, password, "post");
 
     if (getToken === null) {

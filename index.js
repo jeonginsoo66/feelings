@@ -13,12 +13,16 @@ const app = express();
 const PORT = 4000;
 
 (async () => {
-  await mongoose.connect(process.env.MONGO_DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  });
+  try {
+    await mongoose.connect(process.env.MONGO_DB, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 })();
 
 const db = mongoose.connection;
