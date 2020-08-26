@@ -1,7 +1,6 @@
 import request from "request";
 
-let url =
-  "http://api.musixmatch.com/ws/1.1/track.search?q=bruno major&page=1&s_track_rating=desc&apikey=972aab8dd3f24cb5dbd68aec9564750d";
+let url = `http://api.musixmatch.com/ws/1.1/track.search?q=bruno major&page=1&s_track_rating=desc&apikey=${process.env.API_KEY}`;
 request(
   {
     url: encodeURI(url),
