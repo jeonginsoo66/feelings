@@ -1,0 +1,37 @@
+#searchBar {
+  width: 550px;
+}
+
+#navSearchBar {
+  width: 300px;
+}
+
+@media (max-width: 850px) {
+  #searchBar {
+    width: 350px;
+  }
+}
+
+@media (max-width: 450px) {
+  #searchBar {
+    width: 150px;
+  }
+}
+
+#basic-addon1 {
+  background-color: white;
+}
+
+#searchResultFor {
+  margin-top: -40px;
+  margin-left: 15px;
+  margin-bottom: 35px;
+}
+
+.tracksText {
+  float: left;
+}
+
+.track-name {
+  color: #f63;
+}

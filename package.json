@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node api_test.js"
+    "start": "nodemon --exec babel-node index.js"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +29,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.10.0",
     "pug": "^3.0.0",
+    "puppeteer": "^5.2.1",
     "request": "^2.88.2"
   },
   "devDependencies": {

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../partials/head") %>
+  </head>
+  <body>
+    <%- include("../partials/nav") %>
+
+    <div class="track-result container mx-auto w-75">
+      <div class="top-info row">
+        <div class="float-left">
+          <img src="<%= albumSrc %>" class="rounded w-50" />
+        </div>
+        <div class="artist-name-and-track-name col align-self-center">
+          <% if(result.track.track_name.length >= 27) { %>
+          <h1><%= result.track.track_name.substring(0, 27) + "..." %></h1>
+          <% } else { %>
+          <h1><%= result.track.track_name %></h1>
+          <% }%>
+          <h6><%= result.track.artist_name %></h6>
+        </div>
+      </div>
+      <hr class="my-4" />
+
+      <div id="Lyrics">
+        <% lyrics.forEach(value => { %>
+        <p><%= value %></p>
+        <% }); %>
+      </div>
+    </div>
+  </body>
+</html>

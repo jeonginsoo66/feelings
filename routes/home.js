@@ -10,7 +10,7 @@ const getTokenPromise = (username, password, method) => {
   const signPro = new Promise((resolve, reject) => {
     request(
       {
-        url: "http://localhost:4100/api/auth/login",
+        url: "https://feelingloginapi.herokuapp.com/api/auth/login",
         form: {
           username,
           password,
@@ -30,11 +30,14 @@ const getTokenPromise = (username, password, method) => {
 
 // index
 homeRouter.get("/", (req, res) => {
-  const token = req.cookies;
-
   console.log("main home page cookie userData:", req.cookies.userData);
 
-  res.render("home/", { token });
+  if (req.cookies.search) {
+    res.clearCookie("search");
+    res.redirect("/");
+  } else {
+    res.render("home/");
+  }
 });
 
 // sign in form
@@ -85,7 +88,7 @@ homeRouter.post(
           headers: {
             "x-access-token": token.data,
           },
-          url: "http://localhost:4100/api/auth/me",
+          url: "https://feelingloginapi.herokuapp.com/api/auth/me",
           json: true,
         },
         (e, r, body) => {
@@ -110,6 +113,10 @@ homeRouter.get("/signout", (req, res) => {
   res.clearCookie("token");
   res.clearCookie("userData");
   res.redirect("/");
+});
+
+homeRouter.get("/error", (req, res) => {
+  res.render("home/error");
 });
 
 module.exports = homeRouter;

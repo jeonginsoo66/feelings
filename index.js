@@ -36,6 +36,8 @@ db.on("error", (err) => {
 });
 
 app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
+
 app.use(flash());
 app.use(
   session({
@@ -53,20 +55,13 @@ app.use(cookieParser());
 app.use(methodOverride("_method"));
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "content-type, x-access-token"); //1
-  next();
-});
-
-app.use((req, res, next) => {
-  res.locals.currentUser = req.cookies.userData;
+  res.locals.cookies = req.cookies;
   next();
 });
 
 app.use("/", require("./routes/home"));
 app.use("/users", require("./routes/users"));
-//app.use("/musics", require("./routes/musics"));
+app.use("/musics", require("./routes/musics"));
 
 app.listen(PORT, () => {
   console.log("Server Starting...", PORT);
