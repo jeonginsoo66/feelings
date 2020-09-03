@@ -44,29 +44,45 @@ const musixmatchAPI = (apiMethod, param) => {
   return apiResultPromise;
 };
 
+const isEmpty = function (value) {
+  if (
+    value == "" ||
+    value == null ||
+    value == undefined ||
+    (value != null && typeof value == "object" && !Object.keys(value).length)
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 musicRouter.get("/search", (req, res) => {
-  try {
-    const { search, see } = req.query;
+  const { search, see } = req.query;
 
-    res.cookie("search", search, { maxAge: 60 * 60 * 24 * 1000 });
+  res.cookie("search", search, { maxAge: 60 * 60 * 24 * 1000 });
 
-    musixmatchAPI("track.search", {
-      q: search,
-      page_size: 100,
-      s_track_rating: "desc",
-      apikey,
-    }).then((result) => {
+  musixmatchAPI("track.search", {
+    q: search,
+    page_size: 100,
+    s_track_rating: "desc",
+    apikey,
+  })
+    .then((result) => {
+      if (isEmpty(result)) {
+        throw new Error();
+      }
       res.render("musics/search", {
         result: result.track_list,
         search,
         see,
         cookieSearch: req.cookies.search,
       });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/error");
     });
-  } catch (err) {
-    console.log(err);
-    res.redirect("/");
-  }
 });
 
 musicRouter.get("/lyrics/:commontrack_id", (req, res) => {
@@ -78,6 +94,9 @@ musicRouter.get("/lyrics/:commontrack_id", (req, res) => {
   });
 
   apiGetPromise.then((result) => {
+    if (isEmpty(result)) {
+      throw new Error();
+    }
     let trackArr = result.track.track_share_url.split("/");
 
     let artist_name = trackArr[4];
@@ -85,8 +104,8 @@ musicRouter.get("/lyrics/:commontrack_id", (req, res) => {
 
     const artistAndTitle = artist_name + "/" + track_name;
     const trackPromise = scrappingAPI.getLyrics(artistAndTitle);
-    trackPromise.then((track) => {
-      try {
+    trackPromise
+      .then((track) => {
         let lyricsData = track.lyrics.join().split("\n");
         let albumSrc = "http:" + track.albumImg;
         res.render("musics/lyrics", {
@@ -94,10 +113,11 @@ musicRouter.get("/lyrics/:commontrack_id", (req, res) => {
           albumSrc,
           lyrics: lyricsData,
         });
-      } catch (err) {
+      })
+      .catch((err) => {
+        console.log(err);
         res.redirect("/error");
-      }
-    });
+      });
   });
 });
 
