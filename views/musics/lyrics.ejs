@@ -27,6 +27,23 @@
         <p><%= value %></p>
         <% }); %>
       </div>
+
+      <hr class="my-4" />
+
+      <div class="albums">
+        <h4>Album: <%= result.track.album_name %></h4>
+        <ul class="list-group">
+          <% albums.forEach((album) => { %>
+          <li class="list-group-item">
+            <a
+              href="/musics/lyrics/<%=album.track.commontrack_id %>/<%=album.track.album_id %>"
+            >
+              <%= album.track.track_name %>
+            </a>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
     </div>
   </body>
 </html>
