@@ -19,7 +19,6 @@ const getTokenPromise = (username, password, method) => {
         json: true,
       },
       (e, r, body) => {
-        console.log("Promise getToken:", body);
         resolve(body);
       }
     );
@@ -72,7 +71,6 @@ homeRouter.post(
   },
   (req, res) => {
     const { username, password } = req.body;
-    console.log(username, password);
     getToken = getTokenPromise(username, password, "post");
 
     if (getToken === null) {

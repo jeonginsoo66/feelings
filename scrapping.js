@@ -100,37 +100,3 @@ const scrappingAPI = {
 };
 
 export default scrappingAPI;
-
-/*
-let str = "Major Lazer feat. Bruno Mars, 2 Chainz, Tyga & Black M";
-
-let special_pattern = /[!~@#$%^&-*()_+|<>?:{},.\s]/g;
-
-let arr = str.split(special_pattern);
-
-console.log(arr);
-
-while (true) {
-  let isValid = false;
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === "") {
-      arr.splice(i, 1);
-    }
-  }
-
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === "") {
-      isValid = false;
-      break;
-    } else {
-      isValid = true;
-    }
-  }
-
-  if (isValid) {
-    break;
-  }
-}
-
-console.log(arr.join("-"));
-*/
